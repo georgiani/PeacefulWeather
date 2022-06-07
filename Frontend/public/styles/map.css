@@ -1,0 +1,21 @@
+#map { 
+    height: 400px;
+    width: 90%;
+    border-radius: 10px;
+    margin: 20px;
+    z-index:0;
+}
+
+@media screen and (min-width: 992px) {
+    #map {
+            height: 600px;
+            width: 50%;
+            border-radius: 10px;
+            margin: 20px;
+            z-index: 0;
+        }
+}
+
+#information-div {
+    margin: 20px;
+}

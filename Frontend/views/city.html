@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <title>Meteo</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="Description"
+      content="Tieni traccia del meteo in tutte le citta del mongo che vuoi."
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="/styles/map.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body class="vh-100">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <iframe width="100" height="100" src="https://rive.app/s/AZmyxp6zHUCE4umm1vVaFw/embed">
+          </iframe>
+          <a class="navbar-brand" href="/"> Peaceful Weather </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="home-page" href="/">Home 🏡</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/map"
+                  >Map 🗺</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  aria-current="page"
+                  href="/dashboard"
+                  >Personal Dashboard 💛</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a
+                  id="current-city"
+                  class="nav-link active"
+                  ></a>
+              </li>
+            </ul>
+            <div
+              class="mx-lg-3 mb-3 mb-lg-0 rounded bg-dark text-light"
+              id="divSwitchDarkMode"
+            >
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="darkModeBtn"
+                  onclick="selectionMode()"
+                />
+                <label id="darkModeLabel" for="darkModeBtn">🌙</label>
+              </div>
+            </div>
+            <form class="d-flex" action="/city" method="GET">
+              <input
+                class="form-control me-2"
+                type="search"
+                name="name"
+                placeholder="Search"
+                aria-label="Search"
+                required
+              />
+              <button class="btn btn-outline-secondary" type="submit">
+                Search
+              </button>
+            </form>
+
+            <a
+              id="login-logout-button"
+              class="btn btn-outline-primary ms-lg-2 me-2 mb-2 mt-2"
+              href="/login"
+              >Login</a
+            >
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="h-75">
+      <div id="map-row" class="row h-100">
+        <div id="map" class="border"></div>
+        <div id="information-div" class="col-md-5">
+            <h2 id="location">Non Disponibile</h2>
+            <p id="temp"></p>
+            <p id="feels-like"></p>
+            <p id="min-temp"></p>
+            <p id="max-temp"></p>
+            <p id="humidity"></p>
+            <p id="cloudiness"></p>
+            <button id="add-to-dashboard-button" class="btn btn-outline-secondary">
+              Add To Dashboard
+            </button>
+            <p id="info" class="text-danger"></p>
+            <button id="detailed-info-button" class="btn btn-outline-secondary">
+              Download Detailed Informations 
+            </button>
+        </div>
+      </div>
+      <div id="error-div" class="d-flex align-items-center justify-content-center">
+        <p id="error"></p>
+      </div>
+    </main>
+
+    <hr class="rounded">
+
+    <footer class="text-center bg-light">
+      <h4>Peaceful Weather</h4>
+      <p>Tieni traccia del meteo in tutte le citta del mondo che vuoi.</p>
+      <p>&copy; Copyright Peaceful Weather. 2022</p>
+    </footer>
+
+    <script src="/javascripts/city.js"></script>
+    <script src="/javascripts/dark-mode.js"></script>
+    <script src="/javascripts/login-logout-button-handler.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

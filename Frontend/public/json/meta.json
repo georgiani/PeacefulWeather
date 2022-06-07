@@ -1,0 +1,10 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Peaceful Weather",
+  "description": "Tieni traccia del meteo in tutte le citta del mondo che vuoi.",
+  "publisher": {
+    "@type": "Person",
+    "name": "Andrei Georgiani Talpalaru"
+  }
+}

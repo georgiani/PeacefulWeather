@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{this.place}}</title>
+  </head>
+  <body>
+    <h2>Location Info</h2>
+      <ul>
+        <li>Location: {{current.name}}</li>
+        <li>Temperature: {{current.main.temp}} °C</li>
+        <li>Feels Like: {{current.main.feels_like}} °C</li>
+        <li>Minimum Temperature: {{current.main.min_temp}} °C</li>
+        <li>Maximum Temperature: {{current.main.max_temp}} °C</li>
+        <li>Humidity: {{current.main.humidity}} %</li>
+        <li>Cloudiness: {{current.clouds.all}} %</li>
+      </ul>
+    <h2>Forecast</h2>
+    {{#each forecast}}
+      <h3>{{this.date}}</h3>
+      <ul>
+        <li>Temperature: {{this.temp}}</li>
+        <li>Feels Like: {{this.feels_like}}</li>
+        <li>Minimum Temperature: {{this.min_temp}}</li>
+        <li>Maximum Temperature: {{this.max_temp}}</li>
+        <li>Humidity: {{this.humidity}}</li>
+        <li>Cloudiness: {{this.cloudiness}}</li>
+      </ul>
+    {{/each}}
+  </body>
+</html>
